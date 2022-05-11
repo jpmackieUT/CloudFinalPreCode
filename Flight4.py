@@ -41,6 +41,13 @@ if __name__ == "__main__":
     toJFK = toJFK.reduceByKey(lambda a,b: a.union(b))
 
     both = fromLAX.join(toJFK)
+
+
+    test = both.filter(lambda x: len(x[1][1])==1 and x[1][1]==x[1][0])
+    print(test.collect())
+
+
+    
     both = both.filter(lambda x: not(len(x[1][1])==1 and x[1][1]==x[1][0]))
     print(both.collect())
     both = both.map(lambda x: x[0])
