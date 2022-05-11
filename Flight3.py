@@ -29,10 +29,10 @@ if __name__ == "__main__":
 
     lines = lines.map(lambda x: x.split(","))
 
-    lines = lines.map(lambda x: (x[0], (1, 8)))
+    lines = lines.map(lambda x: (x[0], (1, x[8])))
     lines = lines.filter(lambda x: x[1][1] != "NA")
     lines = lines.reduceByKey(lambda a,b: (a[0]+b[0], a[1]+b[1]))
     lines = lines.map(lambda x: (x[0], x[1][1]/x[1][0]))
-    ans = lines.top(7, key=lambda x: 10-x[1])
+    ans = lines.top(7, key=lambda x: 10-x[0])
     for i in ans:
         print(i)
