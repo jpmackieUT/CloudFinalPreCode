@@ -34,6 +34,6 @@ if __name__ == "__main__":
     lines = lines.map(lambda x: (x[0], (x[1][0], int(x[1][1]))))
     lines = lines.reduceByKey(lambda a,b: (a[0]+b[0], a[1]+b[1]))
     lines = lines.map(lambda x: (x[0], x[1][1]/x[1][0]))
-    ans = lines.top(7, key=lambda x: 10-x[0])
+    ans = lines.top(7, key=lambda x: 10-int(x[0]))
     for i in ans:
         print(i)
