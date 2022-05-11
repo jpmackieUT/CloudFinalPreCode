@@ -33,13 +33,16 @@ if __name__ == "__main__":
     # file2 = "gs://luckybucky/Data/flights.csv.bz2"
     lines = sc.textFile(file)
     header = lines.first()
-    print("header "+ header)
+    print("header ")
+    print(header)
     lines = lines.filter(lambda x: x!= header)
-    print("first line:")
+    #print("first line:")
     print(lines.top(1))
 
-    lines = lines.map(lambda x: x.split(",")).map(lambda x: (x[1], x[6]))
-
+    lines = lines.map(lambda x: x.split(","))
+    print(lines.top(1))
+    lines = lines.map(lambda x: (x[1], x[6]))
+    print(lines.top(1))
 
     lines = lines.map(lambda x: (x[0], overUnder(x[1])))
     lines = lines.reduceByKey(add)
