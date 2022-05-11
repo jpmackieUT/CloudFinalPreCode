@@ -28,21 +28,21 @@ if __name__ == "__main__":
     lines = lines.filter(lambda x: x!= header)
 
     lines = lines.map(lambda x: x.split(","))
+                                #from, to, day
+    lines = lines.map(lambda x: (x[3], x[4], x[0]))
 
-    lines = lines.map(lambda x: (x[0], (1, x[8])))
-    lines = lines.filter(lambda x: x[1][1] != "NA")
-    lines = lines.map(lambda x: (x[0], (x[1][0], int(x[1][1]))))
-    lines = lines.reduceByKey(lambda a,b: (a[0]+b[0], a[1]+b[1]))
-    lines = lines.map(lambda x: (x[0], x[1][1]/x[1][0]))
-    ans = lines.top(7, key=lambda x: 10-int(x[0]))
-    for i in ans:
-        print(i)
+    #from LAX to anywhere but JFK
+    fromLAX = lines.filter(lambda x: x[0]=="LAX" and x[1]!="JFK")
+    #valid B airport from LAX, day of week
+    fromLAX = fromLAX.map(lambda x: (x[1], set(x[2])))
+    fromLAX = fromLAX.reduceByKey(lambda a,b: a.union(b))
 
+    #from anywhere but LAX to JFK
+    toJFK = lines.filter(lambda x: x[0]!="LAX" and x[1]=="JFK")
+    #valid B airport to JFK, day of week
+    toJFK = toJFK.map(lambda x: (x[0], set(x[2])))
+    toJFK = toJFK.reduceByKey(lambda a,b: a.union(b))
 
-# ('1', 0.02685287951658651)
-# ('2', 0.019407894736842107)
-# ('3', 0.019459251172050607)
-# ('4', 0.04269167862745753)
-# ('5', 0.022168615835598034)
-# ('6', 0.018755849953200374)
-# ('7', 0.025300585096122933)
+    both = fromLAX.join(toJFK)
+    print(both.top(1))
+
