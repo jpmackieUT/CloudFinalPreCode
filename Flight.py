@@ -26,30 +26,16 @@ if __name__ == "__main__":
 
     sc = SparkContext(appName= "TaskExam")
 
-
     file ="gs://luckybucky/flights-small.csv"
 
-
-    # file0 = "gs://luckybucky/Data/airlines.csv.bz2"
-    # file1 = "gs://luckybucky/Data/airports.csv.bz2"
-    # file2 = "gs://luckybucky/Data/flights.csv.bz2"
     lines = sc.textFile(file)
     header = lines.first()
-    print("header ")
-    print(header)
     lines = lines.filter(lambda x: x!= header)
-    #print("first line:")
-    print(lines.top(1))
 
     lines = lines.map(lambda x: x.split(","))
-    print(lines.top(1))
     lines = lines.map(lambda x: (x[1], x[6]))
-    print(lines.top(1))
-
     lines = lines.map(lambda x: (x[0], overUnder(x[1])))
-    print(lines.top(1))
     lines = lines.reduceByKey(add)
-    print(lines.top(1))
     print("top 3")
     print(lines.top(3, key=lambda x: x[1]))
 
