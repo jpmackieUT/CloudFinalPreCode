@@ -26,9 +26,16 @@ if __name__ == "__main__":
     lines0 = sc.textFile(file0)
     lines1 = sc.textFile(file1)
     lines2 = sc.textFile(file2)
-    print(lines0.first())
-    print(lines1.first())
-    print(lines2.first())
+    header0 = lines0.first()
+    header1 = lines1.first()
+    header2 = lines2.first()
+    lines0 = lines0.filter(lambda x: x!= header0)
+    lines1 = lines1.filter(lambda x: x!= header1)
+    lines2 = lines2.filter(lambda x: x!= header2)
+
+    print(lines0.top(1))
+    print(lines1.top(1))
+    print(lines2.top(1))
 
 
 
@@ -43,3 +50,54 @@ if __name__ == "__main__":
 
     # rdd.top(10)
     # rdd.collect()
+
+
+
+    # Flights/Airports
+    #     IATA_CODE is like DFW, CDG, etc
+
+    # gs://luckybucky/Data/airlines.csv.bz2
+    #     1 IATA_CODE,
+    #     2 AIRLINE
+
+    # gs://luckybucky/Data/airports.csv.bz2
+    #     0 IATA_CODE,
+    #     1 AIRPORT,
+    #     2 CITY,
+    #     3 STATE,
+    #     4 COUNTRY,
+    #     5 LATITUDE,
+    #     6 LONGITUDE
+
+    # gs://luckybucky/Data/flights.csv.bz2
+    #     0 YEAR,
+    #     1 MONTH,
+    #     2 DAY,
+    #     3 DAY_OF_WEEK,
+    #     4 AIRLINE,
+    #     5 FLIGHT_NUMBER,
+    #     6 TAIL_NUMBER,
+    #     7 ORIGIN_AIRPORT,
+    #     8 DESTINATION_AIRPORT,
+    #     9 SCHEDULED_DEPARTURE,
+    #     10 DEPARTURE_TIME,
+    #     11 DEPARTURE_DELAY,
+    #     12 TAXI_OUT,
+    #     13 WHEELS_OFF,
+    #     14 SCHEDULED_TIME,
+    #     15 ELAPSED_TIME,
+    #     16 AIR_TIME,
+    #     17 DISTANCE,
+    #     18 WHEELS_ON,
+    #     19 TAXI_IN,
+    #     20 SCHEDULED_ARRIVAL,
+    #     21 ARRIVAL_TIME,
+    #     22 ARRIVAL_DELAY,
+    #     23 DIVERTED,
+    #     24 CANCELLED,
+    #     25 CANCELLATION_REASON,
+    #     26 AIR_SYSTEM_DELAY,
+    #     27 SECURITY_DELAY,
+    #     28 AIRLINE_DELAY,
+    #     29 LATE_AIRCRAFT_DELAY,
+    #     30 WEATHER_DELAY
