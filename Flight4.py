@@ -14,9 +14,6 @@ from pyspark import SparkContext
 # pyspark.RDD.sortBy and pyspark.RDD.sortByKey
 
 
-def combine(a, b):
-    return (a[0]+b[0], a[1]+b[1])
-
 if __name__ == "__main__":
 
     sc = SparkContext(appName= "TaskExam")
@@ -44,5 +41,11 @@ if __name__ == "__main__":
     toJFK = toJFK.reduceByKey(lambda a,b: a.union(b))
 
     both = fromLAX.join(toJFK)
-    print(both.top(1))
+    both = both.filter(lambda x: not(len(x[1][1])==1 and x[1][1]==x[1][0]))
+    print(both.collect())
+    both = both.map(lambda x: x[0])
+    all = both.collect()
+    for i in all:
+        print(i)
+
 
