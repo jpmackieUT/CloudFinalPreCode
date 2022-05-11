@@ -20,10 +20,13 @@ if __name__ == "__main__":
 
     sc = SparkContext(appName= "TaskExam")
 
+    file0 = "gs://luckybucky/Data/airlines.csv.bz2"
     file1 = "gs://luckybucky/Data/airports.csv.bz2"
     file2 = "gs://luckybucky/Data/flights.csv.bz2"
+    lines0 = sc.textFile(file0)
     lines1 = sc.textFile(file1)
-    lines2 = sc.textFile(file1)
+    lines2 = sc.textFile(file2)
+    print(lines0.first())
     print(lines1.first())
     print(lines2.first())
 
