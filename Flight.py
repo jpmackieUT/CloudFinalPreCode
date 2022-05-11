@@ -14,7 +14,9 @@ import numpy as np
 
 
 def overUnder(num):
-    if(num>2500):
+    if(num =="NA"):
+        return 0
+    if(int(num)>2500):
         return 1
     else:
         return 0
@@ -45,7 +47,9 @@ if __name__ == "__main__":
     print(lines.top(1))
 
     lines = lines.map(lambda x: (x[0], overUnder(x[1])))
+    print(lines.top(1))
     lines = lines.reduceByKey(add)
+    print(lines.top(1))
     print("top 3")
     print(lines.top(3, key=lambda x: x[1]))
 
