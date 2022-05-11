@@ -34,11 +34,11 @@ if __name__ == "__main__":
 
     lines = lines.map(lambda x: x.split(","))
 
-    lines = lines.map(lambda x: ((x[0], x[1]), int(x[7])))
+    lines = lines.map(lambda x: ((x[0], x[1]), x[7]))
     print(lines.top(1))
-    # lines = lines.filter(lambda x: x[1]!="NA")
-    # lines = lines.map(lambda x: (x[0], int(x[1])))
-    # print(lines.top(1))
+    lines = lines.filter(lambda x: x[1]!="NA")
+    lines = lines.map(lambda x: (x[0], int(x[1])))
+    print(lines.top(1))
     lines = lines.reduceByKey(add)
 
     for i in range(1, 8):
