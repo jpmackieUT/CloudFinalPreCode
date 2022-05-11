@@ -34,6 +34,8 @@ if __name__ == "__main__":
     lines = sc.textFile(file)
     header = lines.first()
     lines = lines.filter(lambda x: x!= header)
+    print("header "+ header)
+    print("first line:")
     print(lines.top(1))
 
     lines = lines.map(lambda x: x.split(",")).map(lambda x: (x[1], x[6]))
@@ -41,6 +43,7 @@ if __name__ == "__main__":
 
     lines = lines.map(lambda x: (x[0], overUnder(x[1])))
     lines = lines.reduceByKey(add)
+    print("top 3")
     print(lines.top(3, key=lambda x: x[1]))
 
 
