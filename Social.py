@@ -55,16 +55,16 @@ if __name__ == "__main__":
     print(header0)
     print(lines0.top(1))
 
-    print(header0)
+    print(header1)
     print(lines1.top(1))
 
-    print(header0)
+    print(header2)
     print(lines2.top(1))
 
-    print(header0)
+    print(header3)
     print(lines3.top(1))
 
-    print(header0)
+    print(header4)
     print(lines4.top(1))
 
 
