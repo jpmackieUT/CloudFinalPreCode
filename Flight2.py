@@ -39,6 +39,8 @@ if __name__ == "__main__":
     lines = lines.map(lambda x: (x[0], int(x[1])))
     lines = lines.reduceByKey(add)
 
+    print(lines.top(3, key=lambda x: x[1]))
+
     for i in range(1, 8):
         temp = lines.filter(lambda x: x[0][0]==str(i))
         print("day "+str(i)+":")
