@@ -13,29 +13,35 @@ import numpy as np
 # pyspark.RDD.sortBy and pyspark.RDD.sortByKey
 
 
-
+def overUnder(num):
+    if(num>2500):
+        return 1
+    else:
+        return 0
 
 if __name__ == "__main__":
     print("start")
 
     sc = SparkContext(appName= "TaskExam")
 
-    file0 = "gs://luckybucky/Data/airlines.csv.bz2"
-    file1 = "gs://luckybucky/Data/airports.csv.bz2"
-    file2 = "gs://luckybucky/Data/flights.csv.bz2"
-    lines0 = sc.textFile(file0)
-    lines1 = sc.textFile(file1)
-    lines2 = sc.textFile(file2)
-    header0 = lines0.first()
-    header1 = lines1.first()
-    header2 = lines2.first()
-    lines0 = lines0.filter(lambda x: x!= header0)
-    lines1 = lines1.filter(lambda x: x!= header1)
-    lines2 = lines2.filter(lambda x: x!= header2)
 
-    print(lines0.top(1))
-    print(lines1.top(1))
-    print(lines2.top(1))
+    file ="gs://utcscs378/flights-small.csv"
+
+
+    # file0 = "gs://luckybucky/Data/airlines.csv.bz2"
+    # file1 = "gs://luckybucky/Data/airports.csv.bz2"
+    # file2 = "gs://luckybucky/Data/flights.csv.bz2"
+    lines = sc.textFile(file)
+    header = lines.first()
+    lines = lines.filter(lambda x: x!= header)
+    print(lines.top(1))
+
+    lines = lines.map(lambda x: x.split(",")).map(lambda x: (x[1], x[6]))
+
+
+    lines = lines.map(lambda x: (x[0], overUnder(x[1])))
+    lines = lines.reduceByKey(add)
+    print(lines.top(3, key=lambda x: x[1]))
 
 
 

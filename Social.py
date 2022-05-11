@@ -80,3 +80,23 @@ if __name__ == "__main__":
 
     # rdd.top(10)
     # rdd.collect()
+
+
+
+
+#schema in order
+
+# Comment.id|Person.id
+# ['999990|230']
+
+# Comment.id|Post.id
+# ['999990|258450']
+
+# Person.id|Person.id
+# ['9|971']
+
+# Person.id|Post.id|creationDate
+# ['9|1119600|2012-12-12T09:08:00Z']
+
+# Post.id|Person.id
+# ['999990|165']
