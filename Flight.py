@@ -25,7 +25,7 @@ if __name__ == "__main__":
     sc = SparkContext(appName= "TaskExam")
 
 
-    file ="gs://utcscs378/flights-small.csv"
+    file ="gs://luckybucky/flights-small.csv"
 
 
     # file0 = "gs://luckybucky/Data/airlines.csv.bz2"
@@ -33,8 +33,8 @@ if __name__ == "__main__":
     # file2 = "gs://luckybucky/Data/flights.csv.bz2"
     lines = sc.textFile(file)
     header = lines.first()
-    lines = lines.filter(lambda x: x!= header)
     print("header "+ header)
+    lines = lines.filter(lambda x: x!= header)
     print("first line:")
     print(lines.top(1))
 
