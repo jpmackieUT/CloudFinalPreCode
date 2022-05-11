@@ -31,7 +31,7 @@ sqlContext = sql.SparkSession.builder\
         .getOrCreate()
 
 
-import pyspark.sql.functions.*
+#import pyspark.sql.functions.*
 
 a = [('Chris', 'Budweiser', 15), ('Chris', 'Becks', 5), ('Chris', 'Heineken', 2), ('Bob', 'Becks', 15), ('Bob', 'Budweiser', 10) , ('Bob', 'Heineken', 2) ,  ('Alice', 'Heineken', 8) ] 
 
