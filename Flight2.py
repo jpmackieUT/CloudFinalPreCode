@@ -1,9 +1,10 @@
 
 import sys
 import re
+import numpy as np
+
 from operator import add
 from pyspark import SparkContext
-import numpy as np
 
 # https://spark.apache.org/docs/latest/api/python/reference/pyspark.html
 # pyspark.RDD.countByKey
@@ -22,7 +23,6 @@ def overUnder(num):
         return 0
 
 if __name__ == "__main__":
-    print("start")
 
     sc = SparkContext(appName= "TaskExam")
 
@@ -35,10 +35,11 @@ if __name__ == "__main__":
     lines = lines.map(lambda x: x.split(","))
 
     lines = lines.map(lambda x: ((x[0], x[1]), x[7]))
+    print(lines.top(1))
     lines = lines.reduceByKey(add)
 
     for i in range(1, 8):
-        temp = lines.filter(lambda x: x[0][1]==i)
+        temp = lines.filter(lambda x: x[0][0]==str(i))
         print("day "+str(i)+":")
         print(temp.top(3, key=lambda x: x[1]))
         print()
